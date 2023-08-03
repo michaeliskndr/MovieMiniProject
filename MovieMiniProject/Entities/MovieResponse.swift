@@ -8,7 +8,7 @@
 import Foundation
 
 //MARK: - MovieResponse
-public class MovieResponse: Codable {
+public struct MovieResponse: Codable {
     var page: Int
     var results: [Movie]
     var totalPages: Int
@@ -30,7 +30,7 @@ public class MovieResponse: Codable {
 }
 
 // MARK: - Movie
-public class Movie: Codable {
+public struct Movie: Codable {
     var id: Int
     var originalTitle: String
     var popularity: Double

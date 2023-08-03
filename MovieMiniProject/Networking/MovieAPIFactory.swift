@@ -11,6 +11,9 @@ import Alamofire
 public enum MovieAPI: APIConfig {
     case getMovieGenres
     case getMoviesByGenre(page: Int, genre: Int)
+    case getMovieReviews(id: Int)
+    case getMovieDetail(id: Int)
+    case getMovieTrailer(id: Int)
     
     public var path: String {
         switch self {
@@ -18,6 +21,12 @@ public enum MovieAPI: APIConfig {
             return "/discover/movie"
         case .getMovieGenres:
             return "/genre/movie/list"
+        case .getMovieReviews(let id):
+            return "/movie/\(id)/reviews"
+        case .getMovieDetail(let id):
+            return "movie/\(id)"
+        case .getMovieTrailer(let id):
+            return "/movie/\(id)/videos"
         }
     }
     
