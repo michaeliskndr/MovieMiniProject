@@ -11,7 +11,7 @@ import Alamofire
 public enum MovieAPI: APIConfig {
     case getMovieGenres
     case getMoviesByGenre(page: Int, genre: Int)
-    case getMovieReviews(id: Int)
+    case getMovieReviews(id: Int, page: Int)
     case getMovieDetail(id: Int)
     case getMovieTrailer(id: Int)
     
@@ -21,10 +21,10 @@ public enum MovieAPI: APIConfig {
             return "/discover/movie"
         case .getMovieGenres:
             return "/genre/movie/list"
-        case .getMovieReviews(let id):
+        case .getMovieReviews(let id, _):
             return "/movie/\(id)/reviews"
         case .getMovieDetail(let id):
-            return "movie/\(id)"
+            return "/movie/\(id)"
         case .getMovieTrailer(let id):
             return "/movie/\(id)/videos"
         }
@@ -38,6 +38,8 @@ public enum MovieAPI: APIConfig {
                 "page": page,
                 "with_genres": genre
             ]
+        case .getMovieReviews(_, let page):
+            return ["page": page]
         default: return nil
         }
     }

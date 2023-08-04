@@ -10,6 +10,10 @@ import RxRelay
 import Foundation
 
 public protocol HomePresenterProtocol {
+    // navigation
+    func goToMovieDetail(id: Int)
+    
+    // input
     func loadCategories()
     func loadMovies()
     
@@ -29,7 +33,8 @@ public protocol HomePresenterProtocol {
 final public class HomePresenter {
     
     private var interactor: HomeInteractorProtocol?
-
+    private var router: HomeRouterProtocol?
+    
     private var page = 1
     private var canLoadMore = true
     
@@ -46,8 +51,9 @@ final public class HomePresenter {
 
     private let disposeBag = DisposeBag()
     
-    public init(interactor: HomeInteractorProtocol) {
+    public init(interactor: HomeInteractorProtocol, router: HomeRouterProtocol) {
         self.interactor = interactor
+        self.router = router
         
         loadCategories()
         
@@ -143,5 +149,11 @@ extension HomePresenter: HomePresenterProtocol {
                     self.errorMessage.accept(error.errorDescription)
                 }
             }).disposed(by: disposeBag)
+    }
+}
+
+extension HomePresenter {
+    public func goToMovieDetail(id: Int) {
+        router?.routeToMovieDetail(id: id)
     }
 }

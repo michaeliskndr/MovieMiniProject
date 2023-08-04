@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - ReviewResponse
-public struct ReviewResponse: Codable {
+public struct ReviewResponse: Codable, Hashable {
     let id, page: Int
     let results: [Review]
     let totalPages, totalResults: Int
@@ -21,7 +21,7 @@ public struct ReviewResponse: Codable {
 }
 
 // MARK: - Result
-public struct Review: Codable {
+public struct Review: Codable, Hashable {
     let author: String
     let authorDetails: AuthorDetails
     let content, createdAt, id, updatedAt: String
@@ -39,7 +39,7 @@ public struct Review: Codable {
 }
 
 // MARK: - AuthorDetails
-public struct AuthorDetails: Codable {
+public struct AuthorDetails: Codable, Hashable {
     let name: String
     let username: String
     let avatarPath: String?

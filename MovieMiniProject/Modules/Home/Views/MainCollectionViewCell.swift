@@ -11,7 +11,6 @@ import Then
 import Kingfisher
 
 class MainCollectionViewCell: UICollectionViewCell {
-    static let identifier = String(describing: self)
     
     private lazy var imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill

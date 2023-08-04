@@ -10,7 +10,6 @@ import SnapKit
 import Then
 
 class CategoryCollectionViewCell: UICollectionViewCell {
-    static let identifier = String(describing: self)
     
     private let categoryLabel = UILabel().then {
         $0.numberOfLines = 1

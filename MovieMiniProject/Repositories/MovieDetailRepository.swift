@@ -9,7 +9,7 @@ import RxSwift
 
 public protocol MovieDetailRepository {
     func fetchMovieDetail(id: Int) -> Single<Movie>
-    func fetchMovieReviews(id: Int) -> Single<ReviewResponse>
+    func fetchMovieReviews(id: Int, page: Int) -> Single<ReviewResponse>
 }
 
 struct DefaultMovieDetailRepository: MovieDetailRepository {
@@ -17,7 +17,7 @@ struct DefaultMovieDetailRepository: MovieDetailRepository {
         return APIClient.request(api: MovieAPI.getMovieDetail(id: id), forModel: Movie.self)
     }
     
-    func fetchMovieReviews(id: Int) -> Single<ReviewResponse> {
-        return APIClient.request(api: MovieAPI.getMovieReviews(id: id), forModel: ReviewResponse.self)
+    func fetchMovieReviews(id: Int, page: Int) -> Single<ReviewResponse> {
+        return APIClient.request(api: MovieAPI.getMovieReviews(id: id, page: page), forModel: ReviewResponse.self)
     }
 }

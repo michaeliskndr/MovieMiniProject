@@ -40,15 +40,6 @@ class HomeViewController: UIViewController {
     var presenter: HomePresenterProtocol?
     
     private let disposeBag = DisposeBag()
-    
-    init(presenter: HomePresenterProtocol) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     private lazy var categoryCollectionView = CategoryCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -153,6 +144,12 @@ extension HomeViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.presenter?.loadMoreMovies.onNext(())
             }).disposed(by: disposeBag)
+        
+        mainCollectionView.rx.modelSelected(Movie.self)
+            .subscribe { [weak self] movie in
+                guard let self = self else { return }
+                self.presenter?.goToMovieDetail(id: movie.id)
+            }.disposed(by: disposeBag)
         
         presenter?.errorMessageObservable
             .subscribe(onNext: { [weak self] error in

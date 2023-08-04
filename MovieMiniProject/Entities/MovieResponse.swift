@@ -8,7 +8,7 @@
 import Foundation
 
 //MARK: - MovieResponse
-public struct MovieResponse: Codable {
+public struct MovieResponse: Codable, Hashable {
     var page: Int
     var results: [Movie]
     var totalPages: Int
@@ -30,13 +30,15 @@ public struct MovieResponse: Codable {
 }
 
 // MARK: - Movie
-public struct Movie: Codable {
+public struct Movie: Codable, Hashable {
     var id: Int
     var originalTitle: String
     var popularity: Double
     var voteAverage: Double
     var posterPath: String
     var title: String
+    var overview: String
+    var releaseDate: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -45,6 +47,8 @@ public struct Movie: Codable {
         case voteAverage = "vote_average"
         case posterPath = "poster_path"
         case title
+        case overview
+        case releaseDate = "release_date"
     }
     
     public init(id: Int,
@@ -52,29 +56,16 @@ public struct Movie: Codable {
                 popularity: Double,
                 voteAverage: Double,
                 posterPath: String,
-                title: String) {
+                title: String,
+                overview: String,
+                releaseDate: String) {
         self.id = id
         self.originalTitle = originalTitle
         self.popularity = popularity
         self.voteAverage = voteAverage
         self.posterPath = posterPath
         self.title = title
-    }
-}
-
-// MARK: - MovieCategory
-public enum MovieCategory: Int, CaseIterable {
-    case upcoming
-    case toprated
-    case popular
-    case nowPlaying
-    
-    var description: String {
-        switch self {
-        case .upcoming: return "Upcoming"
-        case .toprated: return "Top Rated"
-        case .popular: return "Popular"
-        case .nowPlaying: return "Now Playing"
-        }
+        self.overview = overview
+        self.releaseDate = releaseDate
     }
 }
